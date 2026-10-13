@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Baran World | Professional Document Editor with AI Tools</title>
+<meta name="description" content="Free Word-like editor: rich text, tables, templates, export, plus on-device AI summarize, keywords and readability.">
+<link rel="canonical" href="https://aoodiakdiro0001-ops.github.io/baranworld/">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0b0e17">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Baran World | Document Editor">
+<meta property="og:description" content="Write, format, export + AI tools. Free.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Arial,sans-serif}
+:root{--bg:#0b0e17;--panel:#141b31;--line:#2a3557;--grn:#34d399;--blu:#60a5fa;--gold:#fbbf24;--txt:#e3e9f5;--mut:#8b98b8;--page:#ffffff;--pagetx:#1a1a1a}
+body{background:var(--bg);color:var(--txt)}
+body.light{--bg:#eef1f6;--panel:#ffffff;--line:#d4dbe7;--txt:#1c2333;--mut:#5b6b85}
+header{display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid var(--line);flex-wrap:wrap;background:var(--panel)}
+.logo{font-size:20px;font-weight:900;color:var(--gold)}
+.logo small{display:block;font-size:10px;color:var(--mut);font-weight:400}
+#docTitle{background:transparent;border:1px solid transparent;color:var(--txt);font-size:15px;font-weight:700;padding:6px 10px;border-radius:8px;min-width:140px;max-width:260px}
+#docTitle:hover{border-color:var(--line)}
+header select.hsel{background:var(--panel);color:var(--txt);border:1px solid var(--line);border-radius:12px;padding:6px 8px;font-size:12px}
+.hbtn{background:var(--bg);color:var(--txt);border:1px solid var(--line);border-radius:10px;padding:7px 12px;cursor:pointer;font-size:12.5px;font-weight:700}
+.hbtn:hover{border-color:var(--gold)}
+#langSel{margin-left:auto}
+.toolbar{display:flex;gap:5px;flex-wrap:wrap;padding:10px 16px;background:var(--panel);border-bottom:1px solid var(--line);align-items:center}
+.toolbar button,.toolbar select{background:var(--bg);color:var(--txt);border:1px solid var(--line);border-radius:8px;padding:7px 10px;cursor:pointer;font-size:13px}
+.toolbar button:hover,.toolbar button.on{border-color:var(--gold);color:var(--gold)}
+.toolbar .sep{width:1px;height:22px;background:var(--line)}
+.wrap{display:flex;max-width:1200px;margin:0 auto;gap:14px;padding:16px 14px 60px;align-items:flex-start}
+aside.side{width:230px;flex-shrink:0;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;font-size:13px}
+aside.side h4{color:var(--gold);margin:8px 0;font-size:13px}
+.docitem{padding:9px 10px;border-radius:10px;cursor:pointer;margin:4px 0;border:1px solid transparent}
+.docitem:hover{background:var(--bg)}
+.docitem.on{border-color:var(--gold)}
+.docitem small{color:var(--mut);display:block;font-size:11px}
+main.doc{flex:1;min-width:0}
+.page{background:var(--page);color:var(--pagetx);border-radius:6px;box-shadow:0 4px 24px rgba(0,0,0,.4);min-height:700px;padding:56px 60px;outline:none;font-size:15px;line-height:1.8}
+.page:empty:before{content:attr(data-ph);color:#999}
+.page table{border-collapse:collapse;margin:10px 0}
+.page table td,.page table th{border:1px solid #999;padding:6px 12px}
+.page img{max-width:100%}
+.statusbar{display:flex;gap:16px;font-size:12px;color:var(--mut);padding:8px 4px;flex-wrap:wrap}
+.aipanel{background:var(--panel);border:1px solid var(--gold);border-radius:14px;padding:16px;margin-top:12px;font-size:13px}
+.aipanel h3{color:var(--gold);font-size:14px;margin-bottom:8px}
+.aipanel .row{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.abtn{background:transparent;color:var(--gold);border:1px solid var(--gold);border-radius:10px;padding:8px 16px;cursor:pointer;font-weight:800;font-size:12.5px}
+.abtn:hover{background:var(--gold);color:#231a03}
+#aiOut{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px;font-size:13px;max-height:300px;overflow:auto;white-space:pre-wrap;line-height:1.7}
+.donate{background:linear-gradient(135deg,#1c2547,#0e2a1d);border:1px solid var(--grn);border-radius:16px;padding:20px;text-align:center;margin:14px auto 0;font-size:13px;max-width:1100px}
+.donate .addr{background:#0b0e17;border-radius:10px;padding:10px;font-family:monospace;font-size:12px;word-break:break-all;direction:ltr;margin:6px auto;color:var(--grn);max-width:560px}
+.adslot{max-width:1100px;margin:12px auto 0;padding:0 15px;text-align:center}
+.adslot .ph{display:block;border:1px dashed var(--line);border-radius:10px;color:var(--mut);font-size:12px;padding:10px}
+footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px 16px;border-top:1px solid var(--line);line-height:2}
+footer a{color:var(--grn)}
+#toast{position:fixed;bottom:25px;left:50%;transform:translateX(-50%);background:#222;color:#fff;padding:12px 25px;border-radius:25px;z-index:200;display:none;font-size:14px;max-width:92vw;text-align:center}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:100}
+.modal.show{display:flex}
+.modal .box{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;width:min(440px,92vw)}
+.modal input{width:100%;background:var(--bg);border:1px solid var(--line);color:var(--txt);border-radius:10px;padding:10px;margin:6px 0;font-size:14px}
+@media print{body>*{display:none!important}#printDoc{display:block!important;color:#000}#printDoc table td,#printDoc table th{border:1px solid #999;padding:6px}}
+#printDoc{display:none}
+@media(max-width:860px){aside.side{display:none}.page{padding:28px 20px}}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">📝 Baran World<small data-i="tag"></small></div>
+<input id="docTitle" value="Untitled">
+<button class="hbtn" onclick="newDoc()" data-i="btnNew"></button>
+<button class="hbtn" onclick="dl('txt')" data-i="btnTxt"></button>
+<button class="hbtn" onclick="dl('html')" data-i="btnHtml"></button>
+<button class="hbtn" onclick="doPrint()" data-i="btnPdf"></button>
+<button class="hbtn" onclick="toggleTheme()">🌓</button>
+<button class="hbtn" onclick="toggleFull()">⛶</button>
+<select id="langSel" class="hsel" onchange="setLang(this.value)">
+<option value="en" selected>🇬🇧 English</option><option value="tr">🇹🇷 Türkçe</option><option value="ar">🇸🇦 العربية</option>
+</select>
+</header>
+<div class="toolbar" id="toolbar">
+<button onclick="cmd('bold')"><b>B</b></button>
+<button onclick="cmd('italic')"><i>I</i></button>
+<button onclick="cmd('underline')"><u>U</u></button>
+<button onclick="cmd('strikeThrough')">S̶</button>
+<span class="sep"></span>
+<button onclick="cmd('formatBlock','h1')">H1</button>
+<button onclick="cmd('formatBlock','h2')">H2</button>
+<button onclick="cmd('formatBlock','p')">¶</button>
+<span class="sep"></span>
+<button onclick="cmd('justifyLeft')">⇤</button>
+<button onclick="cmd('justifyCenter')">⇔</button>
+<button onclick="cmd('justifyRight')">⇥</button>
+<button onclick="cmd('justifyFull')">☰</button>
+<span class="sep"></span>
+<button onclick="cmd('insertUnorderedList')">•☰</button>
+<button onclick="cmd('insertOrderedList')">1.☰</button>
+<button onclick="cmd('outdent')">⇤⇤</button>
+<button onclick="cmd('indent')">⇥⇥</button>
+<span class="sep"></span>
+<select id="fontSel" onchange="cmd('fontName',this.value)"><option>Arial</option><option>Georgia</option><option>Times New Roman</option><option>Courier New</option><option>Verdana</option><option>Tahoma</option></select>
+<select id="sizeSel" onchange="cmd('fontSize',this.value)"><option value="2">S</option><option value="3" selected>M</option><option value="4">L</option><option value="5">XL</option><option value="6">XXL</option></select>
+<input type="color" id="colSel" value="#1a1a1a" onchange="cmd('foreColor',this.value)" style="width:36px;height:30px;padding:0;border:1px solid var(--line);border-radius:8px;background:none">
+<input type="color" id="hlSel" value="#ffff00" onchange="hlColor(this.value)" style="width:36px;height:30px;padding:0;border:1px solid var(--line);border-radius:8px;background:none" title="highlight">
+<span class="sep"></span>
+<button onclick="cmd('createLink',promptLink())">🔗</button>
+<button onclick="cmd('insertHorizontalRule')">―</button>
+<button onclick="cmd('removeFormat')">Tx</button>
+<button onclick="insTable()">▦</button>
+<button onclick="document.getElementById('imgF').click()">🖼️</button>
+<input type="file" id="imgF" accept="image/*" style="display:none" onchange="insImg(this)">
+<button onclick="toggleDir()">⇄</button>
+<button onclick="findDlg()">🔍</button>
+</div>
+<div class="wrap">
+<aside class="side">
+<h4 data-i="docsT"></h4>
+<div id="docList"></div>
+<button class="hbtn" style="width:100%;margin-top:6px" onclick="newDoc()">＋</button>
+<h4 data-i="tmplT" style="margin-top:12px"></h4>
+<div id="tmplList"></div>
+</aside>
+<main class="doc">
+<div class="page" id="editor" contenteditable="true" data-ph="Start writing..."></div>
+<div class="statusbar"><span id="stWords">0 words</span><span id="stChars">0</span><span id="stSaved"></span><span id="stAI">🤖 on-device AI</span></div>
+<div class="aipanel">
+<h3 data-i="aiT"></h3>
+<div class="row">
+<button class="abtn" onclick="aiDo('sum')" data-i="aiSum"></button>
+<button class="abtn" onclick="aiDo('kw')" data-i="aiKw"></button>
+<button class="abtn" onclick="aiDo('read')" data-i="aiRead"></button>
+<button class="abtn" onclick="aiDo('title')" data-i="aiTitle"></button>
+<button class="abtn" onclick="aiDo('toc')" data-i="aiToc"></button>
+</div>
+<div id="aiOut"></div>
+</div>
+</main>
+</div>
+<div class="donate">
+<b data-i="doT"></b><br><span style="font-size:12px;color:var(--mut)" data-i="doS"></span>
+<div>₿ BTC</div><div class="addr" id="btcA"></div>
+<div>₮ USDT-TRC20</div><div class="addr" id="usdtA"></div>
+<div style="font-size:12.5px">🏦 Baran Avisat — TRY: <code dir="ltr">TR10 0001 0090 1008 4013 0050 01</code></div>
+<div style="font-size:12.5px">🏦 Baran Avisat — USD: <code dir="ltr">TR80 0001 0090 1008 4013 0050 02</code></div>
+</div>
+<div id="printDoc"></div>
+<div class="adslot" id="adFoot"><span class="ph" data-i="adHere" style="display:block;border:1px dashed var(--line);border-radius:10px;color:var(--mut);font-size:12px;padding:10px"></span></div>
+<footer><span data-i="foot"></span> · by <b>Baran Avisat</b><br>📧 <a href="mailto:baranavisat@gmail.com">baranavisat@gmail.com</a> · 📞 <a href="tel:+905313263722" dir="ltr">+90 531 326 37 22</a> · <a href="https://wa.me/905313263722" target="_blank" rel="noopener">WhatsApp</a><br><a href="README.md" target="_blank">README</a> · MIT</footer>
+<div class="modal" id="findModal"><div class="box"><h3 data-i="findT"></h3><input id="findQ" data-i-ph="findQPh"><input id="findR" data-i-ph="findRPh"><div class="row"><button class="hbtn" onclick="doFind()" data-i="btnFind"></button><button class="hbtn" onclick="doReplace()" data-i="btnRepl"></button><button class="hbtn" onclick="closeModal()">✕</button></div><div id="findN" style="font-size:12px;color:var(--mut)"></div></div></div>
+<div id="toast"></div>
+<script>
+const CONFIG={ads:{client:'',slot:'',carbonServe:'',carbonPlacement:''},
+pay:{btc:'bc1q8dhtdrndxsl70e97t8grydfe6pjue37zrhzf6c',usdt:'TLWdTjqqogkXNEXGiPWsGdjFP6ioycxeWW'}};
+const T={
+en:{tag:'Word-class editor + on-device AI',btnNew:'＋ New',btnTxt:'TXT',btnHtml:'HTML',btnPdf:'PDF/Print',docsT:'📄 Documents',tmplT:'📑 Templates',
+tabB:'',findT:'Find & Replace',findQPh:'find...',findRPh:'replace with...',btnFind:'Find',btnRepl:'Replace all',
+aiT:'🤖 On-Device AI Tools',aiSum:'Summarize',aiKw:'Keywords',aiRead:'Readability',aiTitle:'Suggest title',aiToc:'Table of contents',
+doT:'💚 Support Baran World',doS:'Free forever.',
+adHere:'Your ad here',foot:'Baran World — free editor, your docs never leave the browser',
+copied:'Copied ✅',savedL:'saved',wordsL:'words',charsL:'chars',needText:'Write something first ⚠️',
+tmplBlank:'Blank',tmplLetter:'Letter',tmplReport:'Report',tmplMeet:'Meeting notes',
+sumL:'Extractive summary',kwL:'Top keywords',readL:'Readability (Flesch)',titleL:'Suggested title',tocL:'Contents',
+sentL:'sentences',dlDone:'Downloaded ✅',promptLink:'Link URL:'},
+tr:{tag:'Word seviyesi editör + cihaz-içi YZ',btnNew:'＋ Yeni',btnTxt:'TXT',btnHtml:'HTML',btnPdf:'PDF/Yazdır',docsT:'📄 Belgeler',tmplT:'📑 Şablonlar',
+findT:'Bul & Değiştir',findQPh:'bul...',findRPh:'şununla değiştir...',btnFind:'Bul',btnRepl:'Tümünü değiştir',
+aiT:'🤖 Cihaz-İçi YZ Araçları',aiSum:'Özetle',aiKw:'Anahtar kelimeler',aiRead:'Okunabilirlik',aiTitle:'Başlık öner',aiToc:'İçindekiler',
+doT:'💚 Destekle',doS:'Sonsuza dek ücretsiz.',
+btnCopy:'Kopyala',adHere:'Reklamınız burada',foot:'Baran World — ücretsiz editör, belgeleriniz tarayıcıdan çıkmaz.',
+copied:'Kopyalandı ✅',savedL:'kaydedildi',wordsL:'kelime',charsL:'karakter',needText:'Önce bir şey yazın ⚠️',
+tmplBlank:'Boş',tmplLetter:'Mektup',tmplReport:'Rapor',tmplMeet:'Toplantı notları',
+sumL:'Özet',kwL:'Anahtar kelimeler',readL:'Okunabilirlik (Flesch)',titleL:'Önerilen başlık',tocL:'İçindekiler',
+sentL:'cümle',dlDone:'İndirildi ✅',promptLink:'Bağlantı URL:'},
+ar:{tag:'محرر بمستوى Word + ذكاء على الجهاز',btnNew:'＋ جديد',btnTxt:'TXT',btnHtml:'HTML',btnPdf:'PDF/طباعة',docsT:'📄 المستندات',tmplT:'📑 قوالب',
+findT:'بحث واستبدال',findQPh:'ابحث...',findRPh:'استبدل بـ...',btnFind:'بحث',btnRepl:'استبدل الكل',
+aiT:'🤖 أدوات ذكية على الجهاز',aiSum:'لخّص',aiKw:'كلمات مفتاحية',aiRead:'المقروئية',aiTitle:'اقترح عنواناً',aiToc:'الفهرس',
+doT:'💚 ادعم',doS:'مجاني للأبد.',
+btnCopy:'نسخ',adHere:'مساحتك الإعلانية هنا',foot:'Baran World — محرر مجاني. مستنداتك لا تغادر المتصفح.',
+copied:'تم ✅',savedL:'حُفظ',wordsL:'كلمات',charsL:'أحرف',needText:'اكتب شيئاً أولاً ⚠️',
+tmplBlank:'فارغ',tmplLetter:'رسالة',tmplReport:'تقرير',tmplMeet:'محضر اجتماع',
+sumL:'ملخص استخراجي',kwL:'كلمات مفتاحية',readL:'المقروئية',titleL:'العنوان المقترح',tocL:'الفهرس',
+sentL:'جمل',dlDone:'نُزّل ✅',promptLink:'رابط URL:'}};
+const STOP2=new Set(['the','a','an','and','or','of','to','in','on','for','with','is','are','was','were','be','been','by','at','from','as','it','its','this','that','these','those','ve','bir','veya','icin','için','ile','bu','su','şu','de','da','mi','mı','mu','mü','olan','olarak','çok','cok','daha','en','ve','في','من','على','إلى','أن','هذا','هذه','التي','الذي','مع','بين','عن','كل','لم','لن','قد','ما','لا','نحن']);
+let lang='en';
+const t=k=>(T[lang]&&T[lang][k])||T.en[k]||k;
+function setLang(v){lang=v;document.documentElement.lang=v;document.documentElement.dir=(v==='ar')?'rtl':'ltr';document.getElementById('langSel').value=v;
+document.querySelectorAll('[data-i]').forEach(e=>{e.textContent=t(e.dataset.i);});
+document.querySelectorAll('[data-i-ph]').forEach(e=>{e.placeholder=t(e.dataset.iPh);});
+renderDocs();renderTmpl();renderDonate();updateStats();}
+function toast(m){let d=document.getElementById('toast');d.textContent=m;d.style.display='block';clearTimeout(d._h);d._h=setTimeout(()=>d.style.display='none',2200);}
+function copyTxt(x){try{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(x);}catch(e){}toast(t('copied'));}
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function ed(){return document.getElementById('editor');}
+function cmd(c,v){document.execCommand(c,false,v==null?null:v);ed().focus();autoSave();}
+function hlColor(v){try{document.execCommand('hiliteColor',false,v);}catch(e){}try{document.execCommand('backColor',false,v);}catch(e){}ed().focus();autoSave();}
+function promptLink(){const u=prompt(t('promptLink'),'https://');return u||'';}
+function insTable(){let r=3,c=3;let h='<table><tbody>';for(let i=0;i<r;i++){h+='<tr>';for(let j=0;j<c;j++)h+='<td>cell</td>';h+='</tr>';}h+='</tbody></table><p><br></p>';document.execCommand('insertHTML',false,h);autoSave();}
+function insImg(el){const f=el.files&&el.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{document.execCommand('insertImage',false,r.result);autoSave();};r.readAsDataURL(f);el.value='';}
+function toggleDir(){const e=ed();e.dir=e.dir==='rtl'?'ltr':'rtl';}
+function findDlg(){document.getElementById('findModal').classList.add('show');}
+function closeModal(){document.getElementById('findModal').classList.remove('show');}
+function plainText(){return ed().innerText||'';}
+function updateStats(){const tx=plainText().trim();const w=tx?tx.split(/\s+/).length:0;
+document.getElementById('stWords').textContent=w+' '+t('wordsL');
+document.getElementById('stChars').textContent=tx.length+' '+t('charsL');}
+function docs(){try{return JSON.parse(localStorage.getItem('bw_docs')||'[]');}catch(e){return [];}}
+function saveDocs(d){try{localStorage.setItem('bw_docs',JSON.stringify(d));}catch(e){}}
+function curId(){try{return localStorage.getItem('bw_cur')||'';}catch(e){return '';}}
+function setCur(id){try{localStorage.setItem('bw_cur',id);}catch(e){}}
+function autoSave(){const id=curId();if(!id)return;const d=docs();const x=d.find(y=>y.id===id);if(!x)return;
+x.html=ed().innerHTML;x.title=document.getElementById('docTitle').value;x.updated=Date.now();saveDocs(d);
+document.getElementById('stSaved').textContent='✓ '+t('savedL')+' '+new Date().toLocaleTimeString();updateStats();}
+function openDoc(id){const d=docs();const x=d.find(y=>y.id===id);if(!x)return;
+setCur(id);ed().innerHTML=x.html||'';document.getElementById('docTitle').value=x.title||'Untitled';renderDocs();updateStats();}
+function newDoc(){const id='D'+Date.now().toString(36).toUpperCase();const d=docs();d.unshift({id,title:'Untitled',html:'',updated:Date.now()});saveDocs(d);openDoc(id);}
+function renderDocs(){const d=docs(),cur=curId();
+document.getElementById('docList').innerHTML=d.map(x=>`<div class="docitem${x.id===cur?' on':''}" onclick="openDoc('${x.id}')"><b>${esc(x.title||'Untitled').slice(0,28)}</b><small>${new Date(x.updated||Date.now()).toLocaleString()} · <a href="#" onclick="event.stopPropagation();delDoc('${x.id}')" style="color:var(--red)">✕</a></small></div>`).join('')||'<p style="color:var(--mut)">—</p>';}
+function delDoc(id){let d=docs().filter(x=>x.id!==id);saveDocs(d);if(curId()===id){if(d.length)openDoc(d[0].id);else newDoc();}else renderDocs();}
+const TMPLS=[
+{k:'tmplBlank',html:'<p><br></p>'},
+{k:'tmplLetter',html:'<p>Dear [Name],</p><p><br></p><p>Thank you for your letter. I am writing to ...</p><p><br></p><p>Best regards,<br>Baran Avisat</p>'},
+{k:'tmplReport',html:'<h1>Report Title</h1><h2>1. Introduction</h2><p>...</p><h2>2. Findings</h2><p>...</p><h2>3. Conclusion</h2><p>...</p>'},
+{k:'tmplMeet',html:'<h1>Meeting Notes — [date]</h1><p><b>Attendees:</b> </p><p><b>Agenda:</b></p><ul><li></li></ul><p><b>Actions:</b></p><ul><li></li></ul>'}];
+function renderTmpl(){document.getElementById('tmplList').innerHTML=TMPLS.map((x,i)=>`<div class="docitem" onclick="useTmpl(${i})"><b>${t(x.k)}</b></div>`).join('');}
+function useTmpl(i){ed().innerHTML=TMPLS[i].html;autoSave();}
+function dl(kind){
+const title=(document.getElementById('docTitle').value||'document').replace(/[^\w\- ]+/g,'').trim()||'document';
+if(kind==='txt'){const b=new Blob([plainText()],{type:'text/plain'});dlBlob(b,title+'.txt');}
+else{const b=new Blob(['<!DOCTYPE html><html><head><meta charset="utf-8"><title>'+title+'</title></head><body>'+ed().innerHTML+'</body></html>'],{type:'text/html'});dlBlob(b,title+'.html');}
+toast(t('dlDone'));
+}
+function dlBlob(b,n){const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=n;a.click();}
+function doPrint(){document.getElementById('printDoc').innerHTML='<h1>'+esc(document.getElementById('docTitle').value)+'</h1>'+ed().innerHTML;window.print();}
+function toggleTheme(){document.body.classList.toggle('light');}
+function toggleFull(){if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen().catch(()=>{});}
+function doFind(){const q=document.getElementById('findQ').value;if(!q)return;const tx=plainText();let n=0,i=-1;while((i=tx.indexOf(q,i+1))>=0)n++;document.getElementById('findN').textContent=n+' ×';}
+function doReplace(){const q=document.getElementById('findQ').value,r=document.getElementById('findR').value;if(!q)return;const sel=window.getSelection();ed().focus();
+let n=0;document.execCommand('selectAll',false,null);
+const html=ed().innerHTML.split(q).join(r);ed().innerHTML=html;n=html!==undefined?1:0;
+document.getElementById('findN').textContent='✓';autoSave();}
+function sentences(tx){return (tx.replace(/\s+/g,' ').match(/[^.!?]+[.!?]+["”)]?|\S[^.!?]*$/g)||[]).map(s=>s.trim()).filter(s=>s.length>10);}
+function wordsOf(s){return (s.toLowerCase().match(/[a-z\u00c0-\u024f\u0370-\u03ff\u0400-\u04ff\u0600-\u06ff\u0750-\u077f\w]+/g)||[]);}
+function aiDo(kind){
+const tx=plainText();if(tx.trim().length<40){toast(t('needText'));return;}
+const box=document.getElementById('aiOut');let h='';
+if(kind==='sum'){const ss=sentences(tx);const freq={};wordsOf(tx).forEach(w=>{if(!STOP2.has(w)&&w.length>2)freq[w]=(freq[w]||0)+1;});
+const scored=ss.map(s=>{let sc=0;wordsOf(s).forEach(w=>{sc+=freq[w]||0;});return {s,sc:sc/Math.max(1,wordsOf(s).length)};}).sort((a,b)=>b.sc-a.sc);
+const top=scored.slice(0,Math.max(1,Math.min(5,Math.ceil(ss.length/3)))).sort((a,b)=>ss.indexOf(a.s)-ss.indexOf(b.s));
+h=`<b>${t('sumL')} (${top.length}/${ss.length} ${t('sentL')})</b><br>`+top.map(x=>'• '+esc(x.s)).join('<br>');}
+else if(kind==='kw'){const freq={};wordsOf(tx).forEach(w=>{if(!STOP2.has(w)&&w.length>3)freq[w]=(freq[w]||0)+1;});
+const top=Object.keys(freq).sort((a,b)=>freq[b]-freq[a]).slice(0,12);
+h=`<b>${t('kwL')}</b><br>`+top.map(w=>`${esc(w)} (${freq[w]})`).join(' · ');}
+else if(kind==='read'){const ss=sentences(tx),ws=wordsOf(tx);const asl=ws.length/Math.max(1,ss.length);
+let syl=0;ws.forEach(w=>{const m=w.toLowerCase().replace(/[^a-z]/g,'').match(/[aeiouy]+/g);syl+=m?m.length:1;});
+const asw=syl/Math.max(1,ws.length);
+const fre=Math.max(0,Math.min(100,206.835-1.015*asl-84.6*asw));
+h=`<b>${t('readL')}: ${fre.toFixed(1)}/100</b><br>~${asl.toFixed(1)} words/sentence · ~${asw.toFixed(2)} syllables/word`;}
+else if(kind==='title'){const ss=sentences(tx);h=`<b>${t('titleL')}</b><br>`+esc((ss[0]||tx).slice(0,80));}
+else if(kind==='toc'){const tmp=document.createElement('div');tmp.innerHTML=ed().innerHTML;
+const hs=[...tmp.querySelectorAll('h1,h2,h3')].map(x=>x.tagName+' '+x.textContent.trim().slice(0,60));
+h=`<b>${t('tocL')}</b><br>`+(hs.length?hs.map(esc).join('<br>'):'—');}
+box.innerHTML=h;
+}
+function renderDonate(){
+document.getElementById('btcA').textContent=CONFIG.pay.btc;
+document.getElementById('usdtA').textContent=CONFIG.pay.usdt;
+}
+function loadAds(){const A=CONFIG.ads,el=document.getElementById('adFoot');if(!el)return;
+if(A.client){el.innerHTML='<ins class="adsbygoogle" style="display:block" data-ad-client="'+A.client+'" data-ad-slot="'+(A.slot||'')+'" data-ad-format="auto"></ins>';
+if(!document.querySelector('script[src*="adsbygoogle"]')){const s=document.createElement('script');s.async=true;s.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client='+A.client;s.crossOrigin='anonymous';document.head.appendChild(s);}try{(window.adsbygoogle=window.adsbygoogle||[]).push({});}catch(e){}}
+else if(A.carbonServe){el.innerHTML='';const s=document.createElement('script');s.async=true;s.id='_carbonads_js';s.src='//cdn.carbonads.com/carbon.js?serve='+A.carbonServe+'&placement='+A.carbonPlacement;el.appendChild(s);}}
+ed().addEventListener('input',()=>{autoSave();});
+document.getElementById('docTitle').addEventListener('input',()=>autoSave());
+if(!docs().length)newDoc();else{const c=curId();if(docs().some(d=>d.id===c))openDoc(c);else openDoc(docs()[0].id);}
+setLang('en');loadAds();renderDonate();updateStats();
+</script>
+</body>
+</html>
