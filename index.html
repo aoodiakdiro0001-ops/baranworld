@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
+    <meta name="google-site-verification" content="sUdW_XpImN1GAPBLydgCJ1f4QelcRviwpb5r5rIQrlI" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Baran World | Professional Document Editor with AI Tools</title>
@@ -226,7 +227,8 @@ function useTmpl(i){ed().innerHTML=TMPLS[i].html;autoSave();}
 function dl(kind){
 const title=(document.getElementById('docTitle').value||'document').replace(/[^\w\- ]+/g,'').trim()||'document';
 if(kind==='txt'){const b=new Blob([plainText()],{type:'text/plain'});dlBlob(b,title+'.txt');}
-else{const b=new Blob(['<!DOCTYPE html><html><head><meta charset="utf-8"><title>'+title+'</title></head><body>'+ed().innerHTML+'</body></html>'],{type:'text/html'});dlBlob(b,title+'.html');}
+else{const b=new Blob(['<!DOCTYPE html><html><head>
+    <meta name="google-site-verification" content="sUdW_XpImN1GAPBLydgCJ1f4QelcRviwpb5r5rIQrlI" /><meta charset="utf-8"><title>'+title+'</title></head><body>'+ed().innerHTML+'</body></html>'],{type:'text/html'});dlBlob(b,title+'.html');}
 toast(t('dlDone'));
 }
 function dlBlob(b,n){const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=n;a.click();}
